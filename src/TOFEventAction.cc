@@ -49,7 +49,14 @@ TOFEventAction::TOFEventAction()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 TOFEventAction::~TOFEventAction()
-{}
+{
+    G4int eventID = event->GetEventID();
+    if (eventID % 10000 == 0)
+    {
+        G4cout << "eventID: " << eventID << G4endl;
+    }
+    
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -64,7 +71,6 @@ void TOFEventAction::EndOfEventAction(const G4Event* event)
 {   
     
     G4int eventID = event->GetEventID();
-    G4cout << "eventID: " << eventID << G4endl;
     // get particle energy
     TOFPrimaryGeneratorAction* generatorAction = (TOFPrimaryGeneratorAction*)
     (G4RunManager::GetRunManager()->GetUserPrimaryGeneratorAction());
