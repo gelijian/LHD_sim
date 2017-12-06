@@ -49,20 +49,17 @@ TOFEventAction::TOFEventAction()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 TOFEventAction::~TOFEventAction()
-{
-    G4int eventID = event->GetEventID();
-    if (eventID % 10000 == 0)
-    {
-        G4cout << "eventID: " << eventID << G4endl;
-    }
-    
-}
+{}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void TOFEventAction::BeginOfEventAction(const G4Event* event)
 {
-    
+    G4int eventID = event->GetEventID();
+    if (eventID % 10000 == 0)
+    {
+        G4cout << "eventID: " << eventID << G4endl;
+    }   
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
