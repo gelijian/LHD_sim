@@ -54,21 +54,6 @@ TOFPrimaryGeneratorAction::TOFPrimaryGeneratorAction()
 	SourceEnergy = 2.45 * MeV;
 	EnergyConst = 0 * MeV;
 	MomentumThetaRange = 0 * deg;
-    TabulatedEnergy = NULL;
-    TabulatedPDF = NULL;
-    PDFsize = 0;
-    TabulatedHead = 0;
-    TabulatedWidth = 0;
-    TabulatedRange = 0;
-    ReadEnergyDist();
-    /*for (int i = 0; i < PDFsize; i++)
-    {
-        cout << TabulatedEnergy[i] << " " << TabulatedPDF[i] << endl;
-    }*/
-    cout << "PDFSIZE: " << PDFsize << endl;
-    cout << "HEAD: " << TabulatedHead << endl;
-    cout << "Range: " << TabulatedRange << endl;
-	G4cout << "Come Primary Initial" << G4endl;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -148,14 +133,6 @@ void TOFPrimaryGeneratorAction::SelfDefineGun()
 	{
 		energy = 0.0-EnergyConst*log(G4UniformRand());
 	}
-    
-    if (SourceType == "Tabulated")
-    {
-        CLHEP::RandGeneral generator(TabulatedPDF, PDFsize);   
-        energy = TabulatedHead + generator.shoot() * TabulatedRange;
-        //energy = generator.shoot(); 
-    }
-    
 
 	//--------define the particle gun
     vx = vr * sin(angtheta) * cos(angphi);
@@ -166,31 +143,6 @@ void TOFPrimaryGeneratorAction::SelfDefineGun()
 	fParticleGun->SetParticleMomentumDirection(G4ThreeVector(vx, vy, vz));
 	fParticleGun->SetParticlePosition(G4ThreeVector(SourcePosition_x, SourcePosition_y,SourcePosition_z));
 	fParticleGun->SetParticleEnergy(energy);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void TOFPrimaryGeneratorAction::ReadEnergyDist()
-{
-    vector<PDFnode> list;
-    struct PDFnode node;
-    ifstream infile("55275_NES");
-    while (!infile.eof())
-    {
-        infile >> node.energy >> node.PDF;
-        list.push_back(node);
-    }
-    PDFsize = list.size() - 1;
-    TabulatedEnergy = new double[PDFsize];
-    TabulatedPDF = new double[PDFsize];
-    TabulatedWidth = list[1].energy - list[0].energy;
-    TabulatedHead = list[0].energy - TabulatedWidth / 2.0;
-    TabulatedRange = list[PDFsize].energy - list[0].energy + TabulatedWidth;
-    for (int i = 0; i < PDFsize; i++)
-    {
-        TabulatedEnergy[i] = list[i].energy;
-        TabulatedPDF[i] = list[i].PDF;
-    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -45,11 +45,6 @@ class TOFPrimaryGeneratorMessenger;
 /// can be changed via the G4 build-in commands of G4ParticleGun class 
 /// (see the macros provided with this example).
 
-struct PDFnode
-{
-    double energy;
-    double PDF;
-};
 
 class TOFPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
@@ -60,7 +55,6 @@ class TOFPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 		virtual void GeneratePrimaries(G4Event* );
 		G4ParticleGun* GetParticleGun() {return fParticleGun;}
 		void SelfDefineGun();
-		void ReadEnergyDist();
 		
 		void SetGPSFlag(G4String data) { GPSFlag = data;};
 		void SetSoureType(G4String data)    { SourceType = data;};
@@ -82,12 +76,6 @@ class TOFPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 		G4double SourceEnergy;
 		G4double EnergyConst;
 		G4double MomentumThetaRange;
-        G4double * TabulatedEnergy;
-        G4double * TabulatedPDF;
-        G4int PDFsize;
-        G4double TabulatedHead;
-        G4double TabulatedWidth;
-        G4double TabulatedRange;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

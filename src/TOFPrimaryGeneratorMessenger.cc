@@ -34,7 +34,7 @@ TOFPrimaryGeneratorMessenger::TOFPrimaryGeneratorMessenger(TOFPrimaryGeneratorAc
 	SourceTypeCmd->SetGuidance("SourceType : mono(default), flat, Cf252, expdecay, gauss, rect, Tabulated");
 	SourceTypeCmd->SetParameterName("SourceType",true);
 	SourceTypeCmd->SetDefaultValue("mono");
-	SourceTypeCmd->SetCandidates("mono flat Cf252 expdecay gauss rect Tabulated");
+	SourceTypeCmd->SetCandidates("mono flat Cf252 expdecay gauss rect");
 	SourceTypeCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
 	SourceEnergyCmd = new G4UIcmdWithADoubleAndUnit("/TOF/Gun/SourceEnergy",this);
